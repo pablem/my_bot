@@ -47,6 +47,15 @@ def generate_launch_description():
         arguments=["joint_broad"],
     )
 
+    # ekf_config = os.path.join(get_package_share_directory(package_name),'config','ekf.yaml')
+    # # Run the ekf_node from the robot_localization package
+    # ekf_node = Node(
+    #     package='robot_localization',
+    #     executable='ekf_node',
+    #     name='ekf_filter_node',
+    #     output='screen',
+    #     parameters=[ekf_config]
+    # )
 
     # Launch them all!
     return LaunchDescription([
@@ -54,5 +63,6 @@ def generate_launch_description():
         gazebo,
         spawn_entity,
         diff_drive_spawner,
-        joint_broad_spawner
+        joint_broad_spawner,
+        # ekf_node,
     ])
