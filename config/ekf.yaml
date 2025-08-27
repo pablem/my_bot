@@ -7,7 +7,7 @@ ekf_filter_node:
 
     map_frame: map
     odom_frame: odom
-    base_link_frame: base_link
+    base_link_frame: base_footprint  #base_link para imu
     world_frame: odom           # Frame de referencia principal, frame desde donde se interpreta la localización (odom, si no hay gps)
     
     #(jerarquía de referencia usada por TF: map_frame / odom_frame / base_link_frame)
