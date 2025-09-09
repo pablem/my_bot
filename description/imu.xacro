@@ -30,7 +30,7 @@
   </link>
 
   <!-- Bloque Gazebo para simular IMU -->
-  <gazebo reference="imu_link">
+  <!-- <gazebo reference="imu_link">
     <material>Gazebo/Red</material>
     <sensor name="imu_sensor" type="imu">
       <update_rate>50.0</update_rate>
@@ -38,12 +38,11 @@
       <visualize>false</visualize>
       <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
         <ros>
-          <!-- <namespace>/</namespace> -->
           <remapping>~/out:=/imu/data</remapping>
         </ros>
         <frame_name>imu_link</frame_name>
       </plugin>
     </sensor>
-  </gazebo>
+  </gazebo> -->
 
 </robot>

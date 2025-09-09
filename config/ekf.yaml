@@ -3,11 +3,12 @@ ekf_filter_node:
     frequency: 30.0           # Frecuencia de actualización del filtro (Hz)
     sensor_timeout: 0.2       # Si un sensor deja de publicar, tiempo máximo antes de descartarlo
     two_d_mode: true          # Si es robot en 2D (plano X-Y, yaw)
-    publish_tf: false          # ### EN TRUE PARA USAR ODOMETRY FILTERED  Publica la transformación odom -> base_link
+    publish_tf: true          # ### EN TRUE PARA USAR ODOMETRY FILTERED  Publica la transformación odom -> base_link
 
     map_frame: map
     odom_frame: odom
-    base_link_frame: base_footprint  #base_link para imu
+    # base_link_frame: base_footprint  #base_link para imu
+    base_link_frame: base_link 
     world_frame: odom           # Frame de referencia principal, frame desde donde se interpreta la localización (odom, si no hay gps)
     
     #(jerarquía de referencia usada por TF: map_frame / odom_frame / base_link_frame)
@@ -15,20 +16,24 @@ ekf_filter_node:
 
     # Inputs
     # /odom aporta posición XY y yaw.
-    odom0: /diff_cont/odom
-    odom0_config: [true,  true,  false,
-                   false, false, true,
-                   false, false, false,
-                   false, false, false,
-                   false, false, false]
+    # odom0: /diff_cont/odom
+    # odom0_config: [true,  true,  false,
+    #                false, false, true,
+    #                false, false, false,
+    #                false, false, false,
+    #                false, false, false]
 
     # /imu/data aporta velocidad angular y orientación.
     imu0: /imu/data
-    imu0_config: [false, false, false,
-                  true,  true,  true,
-                  false, false, false,
-                  false, false, true,
-                  false, false, false]
+    imu0_config: [false, false, false,   # x y z pos
+                  false, false, true,    # roll pitch yaw -> solo yaw
+                  false, false, false,   # vx vy vz
+                  false, false, true,    # vroll vpitch vyaw
+                  false, false, false]   # ax ay az
+    imu0_differential: false
+    imu0_relative: false
+
+    use_control: false
 
 #Config matrices (odom0_config, imu0_config)
 # Cada lista de 15 valores (true/false) indica qué variables de ese sensor se usan:
@@ -37,8 +42,7 @@ ekf_filter_node:
 #                   - [roll, pitch, yaw] orientación (ángulos de Euler)
 #                   - [vroll, vpitch, vyaw] velocidad angular
 
-    imu0_differential: false
-    imu0_remove_gravitational_acceleration: true
+    # imu0_remove_gravitational_acceleration: false
 
-    use_sim_time: true
+    use_sim_time: false
 
